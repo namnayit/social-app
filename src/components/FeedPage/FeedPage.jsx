@@ -156,31 +156,6 @@ const FeedPage = ({ currentUser, onLogout }) => {
             ))}
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
-
-export default FeedPage;
-            <button 
-              className="btn btn-primary post-btn"
-              onClick={handleCreatePost}
-              disabled={!newPost.trim() && !newPostImage.trim()}
-            >
-              Post
-            </button>
-          </div>
-          
-          <div className="posts">
-            {posts.map(post => (
-              <PostCard 
-                key={post.id} 
-                post={post} 
-                onUpdatePost={handleUpdatePost}
-              />
-            ))}
-          </div>
-        </div>
         
         <div className="sidebar-right">
           <div className="trending">
