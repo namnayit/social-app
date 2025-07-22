@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navigation from './Navigation';
-import PostCard from './PostCard';
-import UserProfile from './UserProfile';
+import Navigation from '../Navigation/Navigation';
+import PostCard from '../PostCard/PostCard';
+import UserProfile from '../UserProfile/UserProfile';
 import './FeedPage.css';
 
 const FeedPage = ({ currentUser, onLogout }) => {
@@ -51,16 +51,6 @@ const FeedPage = ({ currentUser, onLogout }) => {
       <div className="feed-container">
         <div className="sidebar-left">
           <UserProfile user={currentUser} />
-          
-          <div className="quick-links">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><Link to="/event/1">Upcoming Events</Link></li>
-              <li><a href="#groups">Groups</a></li>
-              <li><a href="#friends">Friends</a></li>
-              <li><a href="#messages">Messages</a></li>
-            </ul>
-          </div>
         </div>
         
         <div className="main-feed">

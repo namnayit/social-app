@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Navigation from './Navigation';
+import Navigation from '../Navigation/Navigation';
 import './EventPage.css';
 
 const EventPage = ({ currentUser, onLogout }) => {
@@ -16,7 +16,7 @@ const EventPage = ({ currentUser, onLogout }) => {
     link: 'www.techmeetup.com/events',
     description: 'Join us for an exciting evening of tech talks, networking, and innovation. Meet like-minded developers, entrepreneurs, and tech enthusiasts.',
     attendees: 156,
-    mapImage: 'https://images.pexels.com/photos/5711049/pexels-photo-5711049.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop'
+    mapImage: 'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'
   };
 
   const handleAttendingClick = (attending) => {

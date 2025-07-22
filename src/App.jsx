@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
-import LoginPage from './components/LoginPage';
-import FeedPage from './components/FeedPage';
-import EventPage from './components/EventPage';
+import LoginPage from './components/LoginPage/LoginPage';
+import FeedPage from './components/FeedPage/FeedPage';
+import EventPage from './components/EventPage/EventPage';
 import './App.css';
 
 function App() {
