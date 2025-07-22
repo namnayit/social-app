@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import PostCard from '../PostCard/PostCard';
 import UserProfile from '../UserProfile/UserProfile';
 import './FeedPage.css';
 
 const FeedPage = ({ currentUser, onLogout }) => {
-  const [posts] = useState([
+  const [posts, setPosts] = useState([
     {
       id: 1,
       user: {
@@ -44,6 +43,32 @@ const FeedPage = ({ currentUser, onLogout }) => {
     }
   ]);
 
+  const [newPost, setNewPost] = useState('');
+  const [newPostImage, setNewPostImage] = useState('');
+
+  const handleCreatePost = () => {
+    if (newPost.trim() || newPostImage.trim()) {
+      const post = {
+        id: posts.length + 1,
+        user: currentUser,
+        content: newPost.trim(),
+        image: newPostImage.trim(),
+        likes: 0,
+        comments: 0,
+        timestamp: 'Just now'
+      };
+      setPosts([post, ...posts]);
+      setNewPost('');
+      setNewPostImage('');
+    }
+  };
+
+  const handleUpdatePost = (postId, updatedPost) => {
+    setPosts(posts.map(post => 
+      post.id === postId ? updatedPost : post
+    ));
+  };
+
   return (
     <div className="feed-page">
       <Navigation currentUser={currentUser} onLogout={onLogout} />
@@ -61,14 +86,35 @@ const FeedPage = ({ currentUser, onLogout }) => {
                 type="text" 
                 placeholder="What's on your mind?" 
                 className="input post-input"
+                value={newPost}
+                onChange={(e) => setNewPost(e.target.value)}
               />
             </div>
-            <button className="btn btn-primary post-btn">Post</button>
+            <div className="create-post-image">
+              <input 
+                type="url" 
+                placeholder="Add image URL (optional)" 
+                className="input image-input"
+                value={newPostImage}
+                onChange={(e) => setNewPostImage(e.target.value)}
+              />
+            </div>
+            <button 
+              className="btn btn-primary post-btn"
+              onClick={handleCreatePost}
+              disabled={!newPost.trim() && !newPostImage.trim()}
+            >
+              Post
+            </button>
           </div>
           
           <div className="posts">
             {posts.map(post => (
-              <PostCard key={post.id} post={post} />
+              <PostCard 
+                key={post.id} 
+                post={post} 
+                onUpdatePost={handleUpdatePost}
+              />
             ))}
           </div>
         </div>

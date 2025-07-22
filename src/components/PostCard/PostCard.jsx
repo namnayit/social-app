@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import './PostCard.css';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, onUpdatePost }) => {
   const [likes, setLikes] = useState(post.likes);
   const [isLiked, setIsLiked] = useState(false);
-  const [comments, setComments] = useState(post.comments);
+  const [comments, setComments] = useState([]);
+  const [showComments, setShowComments] = useState(false);
+  const [newComment, setNewComment] = useState('');
 
   const handleLike = () => {
     if (isLiked) {
@@ -13,6 +15,35 @@ const PostCard = ({ post }) => {
       setLikes(likes + 1);
     }
     setIsLiked(!isLiked);
+    
+    const updatedPost = {
+      ...post,
+      likes: isLiked ? likes - 1 : likes + 1
+    };
+    onUpdatePost(post.id, updatedPost);
+  };
+
+  const handleAddComment = () => {
+    if (newComment.trim()) {
+      const comment = {
+        id: comments.length + 1,
+        user: 'You',
+        text: newComment.trim(),
+        timestamp: 'Just now'
+      };
+      setComments([...comments, comment]);
+      setNewComment('');
+      
+      const updatedPost = {
+        ...post,
+        comments: post.comments + 1
+      };
+      onUpdatePost(post.id, updatedPost);
+    }
+  };
+
+  const toggleComments = () => {
+    setShowComments(!showComments);
   };
 
   return (
@@ -39,6 +70,7 @@ const PostCard = ({ post }) => {
       <div className="post-actions">
         <button 
           className={`action-btn like-btn ${isLiked ? 'liked' : ''}`}
+          onClick={toggleComments}
           onClick={handleLike}
         >
           <span className="action-icon">👍</span>
@@ -47,7 +79,7 @@ const PostCard = ({ post }) => {
         
         <button className="action-btn comment-btn">
           <span className="action-icon">💬</span>
-          <span>{comments} comments</span>
+          <span>{post.comments + comments.length} comments</span>
         </button>
         
         <button className="action-btn share-btn">
@@ -55,6 +87,38 @@ const PostCard = ({ post }) => {
           <span>Share</span>
         </button>
       </div>
+      
+      {showComments && (
+        <div className="comments-section">
+          <div className="add-comment">
+            <input
+              type="text"
+              placeholder="Write a comment..."
+              className="input comment-input"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleAddComment()}
+            />
+            <button 
+              className="btn btn-primary comment-btn-submit"
+              onClick={handleAddComment}
+              disabled={!newComment.trim()}
+            >
+              Post
+            </button>
+          </div>
+          
+          <div className="comments-list">
+            {comments.map(comment => (
+              <div key={comment.id} className="comment-item">
+                <div className="comment-user">{comment.user}</div>
+                <div className="comment-text">{comment.text}</div>
+                <div className="comment-timestamp">{comment.timestamp}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

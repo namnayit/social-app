@@ -40,6 +40,10 @@
   gap: 12px;
 }
 
+.create-post-image {
+  margin-left: 52px;
+}
+
 .avatar-small {
   width: 40px;
   height: 40px;
@@ -54,6 +58,17 @@
 
 .post-btn {
   align-self: flex-end;
+}
+
+.post-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #cccccc;
+  border-color: #cccccc;
+}
+
+.image-input {
+  font-size: 14px;
 }
 
 .trending {
