@@ -44,22 +44,40 @@ const FeedPage = ({ currentUser, onLogout }) => {
   ]);
 
   const [newPost, setNewPost] = useState('');
-  const [newPostImage, setNewPostImage] = useState('');
+  const [newPostImage, setNewPostImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setNewPostImage(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setNewPostImage(null);
+    setImagePreview('');
+  };
   const handleCreatePost = () => {
-    if (newPost.trim() || newPostImage.trim()) {
+    if (newPost.trim() || newPostImage) {
       const post = {
         id: posts.length + 1,
         user: currentUser,
         content: newPost.trim(),
-        image: newPostImage.trim(),
+        image: imagePreview,
         likes: 0,
         comments: 0,
         timestamp: 'Just now'
       };
       setPosts([post, ...posts]);
       setNewPost('');
-      setNewPostImage('');
+      setNewPostImage(null);
+      setImagePreview('');
     }
   };
 
@@ -90,15 +108,60 @@ const FeedPage = ({ currentUser, onLogout }) => {
                 onChange={(e) => setNewPost(e.target.value)}
               />
             </div>
-            <div className="create-post-image">
-              <input 
-                type="url" 
-                placeholder="Add image URL (optional)" 
-                className="input image-input"
-                value={newPostImage}
-                onChange={(e) => setNewPostImage(e.target.value)}
-              />
+            
+            <div className="create-post-actions">
+              <div className="image-upload-section">
+                <input 
+                  type="file" 
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="image-input-hidden"
+                  id="image-upload"
+                />
+                <label htmlFor="image-upload" className="btn btn-secondary image-upload-btn">
+                  📷 Add Photo
+                </label>
+                
+                {imagePreview && (
+                  <div className="image-preview">
+                    <img src={imagePreview} alt="Preview" className="preview-image" />
+                    <button 
+                      type="button" 
+                      className="remove-image-btn"
+                      onClick={removeImage}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
+              </div>
+              
+              <button 
+                className="btn btn-primary post-btn"
+                onClick={handleCreatePost}
+                disabled={!newPost.trim() && !newPostImage}
+              >
+                Post
+              </button>
             </div>
+          </div>
+          
+          <div className="posts">
+            {posts.map(post => (
+              <PostCard 
+                key={post.id} 
+                post={post} 
+                onUpdatePost={handleUpdatePost}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FeedPage;
             <button 
               className="btn btn-primary post-btn"
               onClick={handleCreatePost}

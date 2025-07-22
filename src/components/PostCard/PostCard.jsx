@@ -77,7 +77,10 @@ const PostCard = ({ post, onUpdatePost }) => {
           <span>{likes} Likes</span>
         </button>
         
-        <button className="action-btn comment-btn">
+        <button 
+          className={`action-btn comment-btn ${showComments ? 'active' : ''}`}
+          onClick={toggleComments}
+        >
           <span className="action-icon">💬</span>
           <span>{post.comments + comments.length} comments</span>
         </button>
