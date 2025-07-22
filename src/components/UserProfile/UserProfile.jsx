@@ -2,7 +2,7 @@ import './UserProfile.css';
 
 const UserProfile = ({ user, posts }) => {
   // Calculate real stats from posts
-  const totalPosts = posts.length;
+  const totalPosts = posts.filter(post => post.user.name === user.name).length;
   const totalComments = posts.reduce((sum, post) => {
     return sum + (post.totalComments || 0);
   }, 0);
