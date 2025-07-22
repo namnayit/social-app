@@ -1,9 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useState } from 'react';
-import LoginPage from './components/LoginPage/LoginPage';
-import FeedPage from './components/FeedPage/FeedPage';
-import EventPage from './components/EventPage/EventPage';
-import './App.css';
+import { useState } from "react";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import "./App.css";
+import EventPage from "./components/EventPage/EventPage";
+import FeedPage from "./components/FeedPage/FeedPage";
+import LoginPage from "./components/LoginPage/LoginPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,29 +28,35 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route 
-            path="/login" 
+          <Route
+            path="/login"
             element={
-              isLoggedIn ? 
-                <Navigate to="/feed" replace /> : 
+              isLoggedIn ? (
+                <Navigate to="/feed" replace />
+              ) : (
                 <LoginPage onLogin={handleLogin} />
-            } 
+              )
+            }
           />
-          <Route 
-            path="/feed" 
+          <Route
+            path="/feed"
             element={
-              isLoggedIn ? 
-                <FeedPage currentUser={currentUser} onLogout={handleLogout} /> : 
+              isLoggedIn ? (
+                <FeedPage currentUser={currentUser} onLogout={handleLogout} />
+              ) : (
                 <Navigate to="/login" replace />
-            } 
+              )
+            }
           />
-          <Route 
-            path="/event/:eventId" 
+          <Route
+            path="/event/:eventId"
             element={
-              isLoggedIn ? 
-                <EventPage currentUser={currentUser} onLogout={handleLogout} /> : 
+              isLoggedIn ? (
+                <EventPage currentUser={currentUser} onLogout={handleLogout} />
+              ) : (
                 <Navigate to="/login" replace />
-            } 
+              )
+            }
           />
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
