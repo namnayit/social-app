@@ -1,6 +1,12 @@
 import './UserProfile.css';
 
-const UserProfile = ({ user }) => {
+const UserProfile = ({ user, posts }) => {
+  // Calculate real stats from posts
+  const totalPosts = posts.length;
+  const totalComments = posts.reduce((sum, post) => {
+    return sum + (post.totalComments || 0);
+  }, 0);
+
   return (
     <div className="user-profile">
       <div className="profile-avatar">
@@ -11,12 +17,12 @@ const UserProfile = ({ user }) => {
       
       <div className="profile-stats">
         <div className="stat">
-          <span className="stat-number">1,234</span>
-          <span className="stat-label">Following</span>
+          <span className="stat-number">{totalPosts}</span>
+          <span className="stat-label">Posts</span>
         </div>
         <div className="stat">
-          <span className="stat-number">5,678</span>
-          <span className="stat-label">Followers</span>
+          <span className="stat-number">{totalComments}</span>
+          <span className="stat-label">Comments</span>
         </div>
       </div>
     </div>

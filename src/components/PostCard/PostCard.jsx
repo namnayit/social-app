@@ -2,9 +2,9 @@ import { useState } from 'react';
 import './PostCard.css';
 
 const PostCard = ({ post, onUpdatePost }) => {
-  const [likes, setLikes] = useState(post.likes);
+  const [likes, setLikes] = useState(post.likes || 0);
   const [isLiked, setIsLiked] = useState(false);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState(post.existingComments || []);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
 
@@ -18,7 +18,8 @@ const PostCard = ({ post, onUpdatePost }) => {
     
     const updatedPost = {
       ...post,
-      likes: isLiked ? likes - 1 : likes + 1
+      likes: isLiked ? likes - 1 : likes + 1,
+      totalComments: (post.existingComments?.length || 0) + comments.length
     };
     onUpdatePost(post.id, updatedPost);
   };
@@ -27,7 +28,7 @@ const PostCard = ({ post, onUpdatePost }) => {
     if (newComment.trim()) {
       const comment = {
         id: comments.length + 1,
-        user: 'You',
+        user: 'Michel Jennifer',
         text: newComment.trim(),
         timestamp: 'Just now'
       };
@@ -36,7 +37,8 @@ const PostCard = ({ post, onUpdatePost }) => {
       
       const updatedPost = {
         ...post,
-        comments: post.comments + 1
+        totalComments: (post.existingComments?.length || 0) + comments.length + 1,
+        existingComments: post.existingComments || []
       };
       onUpdatePost(post.id, updatedPost);
     }
@@ -82,7 +84,7 @@ const PostCard = ({ post, onUpdatePost }) => {
           onClick={toggleComments}
         >
           <span className="action-icon">💬</span>
-          <span>{post.comments + comments.length} comments</span>
+          <span>{(post.existingComments?.length || 0) + comments.length} comments</span>
         </button>
         
         <button className="action-btn share-btn">
@@ -112,6 +114,13 @@ const PostCard = ({ post, onUpdatePost }) => {
           </div>
           
           <div className="comments-list">
+            {post.existingComments?.map(comment => (
+              <div key={`existing-${comment.id}`} className="comment-item">
+                <div className="comment-user">{comment.user}</div>
+                <div className="comment-text">{comment.text}</div>
+                <div className="comment-timestamp">{comment.timestamp}</div>
+              </div>
+            ))}
             {comments.map(comment => (
               <div key={comment.id} className="comment-item">
                 <div className="comment-user">{comment.user}</div>

@@ -15,8 +15,13 @@ const FeedPage = ({ currentUser, onLogout }) => {
       content: 'Check out this amazing view from my hiking trip!',
       image: 'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
       likes: 200,
-      comments: 3,
-      timestamp: '1 sec ago'
+      existingComments: [
+        { id: 1, user: 'Sarah Johnson', text: 'Amazing view!', timestamp: '2 hours ago' },
+        { id: 2, user: 'Alex Rodriguez', text: 'Where is this place?', timestamp: '1 hour ago' },
+        { id: 3, user: 'Emma Wilson', text: 'Beautiful shot!', timestamp: '30 min ago' }
+      ],
+      timestamp: '1 sec ago',
+      totalComments: 3
     },
     {
       id: 2,
@@ -27,8 +32,12 @@ const FeedPage = ({ currentUser, onLogout }) => {
       content: 'Great coffee and even better company at the new cafe downtown!',
       image: 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
       likes: 156,
-      comments: 8,
-      timestamp: '2 hours ago'
+      existingComments: [
+        { id: 1, user: 'David Chen', text: 'Love this place!', timestamp: '1 hour ago' },
+        { id: 2, user: 'Michel Jennifer', text: 'We should go together sometime', timestamp: '45 min ago' }
+      ],
+      timestamp: '2 hours ago',
+      totalComments: 2
     },
     {
       id: 3,
@@ -38,8 +47,11 @@ const FeedPage = ({ currentUser, onLogout }) => {
       },
       content: 'Working on a new project. Excited to share it with everyone soon!',
       likes: 89,
-      comments: 12,
-      timestamp: '4 hours ago'
+      existingComments: [
+        { id: 1, user: 'Emma Wilson', text: 'Can\'t wait to see it!', timestamp: '3 hours ago' }
+      ],
+      timestamp: '4 hours ago',
+      totalComments: 1
     }
   ]);
 
@@ -71,8 +83,9 @@ const FeedPage = ({ currentUser, onLogout }) => {
         content: newPost.trim(),
         image: imagePreview,
         likes: 0,
-        comments: 0,
-        timestamp: 'Just now'
+        existingComments: [],
+        timestamp: 'Just now',
+        totalComments: 0
       };
       setPosts([post, ...posts]);
       setNewPost('');
@@ -93,7 +106,7 @@ const FeedPage = ({ currentUser, onLogout }) => {
       
       <div className="feed-container">
         <div className="sidebar-left">
-          <UserProfile user={currentUser} />
+          <UserProfile user={currentUser} posts={posts} />
         </div>
         
         <div className="main-feed">
