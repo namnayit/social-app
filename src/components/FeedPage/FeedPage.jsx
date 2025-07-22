@@ -14,14 +14,10 @@ const FeedPage = ({ currentUser, onLogout }) => {
       },
       content: 'Check out this amazing view from my hiking trip!',
       image: 'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      likes: 200,
-      existingComments: [
-        { id: 1, user: 'Sarah Johnson', text: 'Amazing view!', timestamp: '2 hours ago' },
-        { id: 2, user: 'Alex Rodriguez', text: 'Where is this place?', timestamp: '1 hour ago' },
-        { id: 3, user: 'Emma Wilson', text: 'Beautiful shot!', timestamp: '30 min ago' }
-      ],
+      likes: 0,
+      existingComments: [],
       timestamp: '1 sec ago',
-      totalComments: 3
+      totalComments: 0
     },
     {
       id: 2,
@@ -31,13 +27,10 @@ const FeedPage = ({ currentUser, onLogout }) => {
       },
       content: 'Great coffee and even better company at the new cafe downtown!',
       image: 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      likes: 156,
-      existingComments: [
-        { id: 1, user: 'David Chen', text: 'Love this place!', timestamp: '1 hour ago' },
-        { id: 2, user: 'Michel Jennifer', text: 'We should go together sometime', timestamp: '45 min ago' }
-      ],
+      likes: 0,
+      existingComments: [],
       timestamp: '2 hours ago',
-      totalComments: 2
+      totalComments: 0
     },
     {
       id: 3,
@@ -46,12 +39,10 @@ const FeedPage = ({ currentUser, onLogout }) => {
         avatar: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop'
       },
       content: 'Working on a new project. Excited to share it with everyone soon!',
-      likes: 89,
-      existingComments: [
-        { id: 1, user: 'Emma Wilson', text: 'Can\'t wait to see it!', timestamp: '3 hours ago' }
-      ],
+      likes: 0,
+      existingComments: [],
       timestamp: '4 hours ago',
-      totalComments: 1
+      totalComments: 0
     }
   ]);
 
