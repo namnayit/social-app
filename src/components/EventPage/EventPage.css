@@ -1,13 +1,13 @@
 .event-page {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   min-height: 100vh;
-  padding: 20px 0;
 }
 
 .event-container {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px;
+  padding-top: 24px;
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 32px;
