@@ -5,9 +5,6 @@ const UserProfile = ({ user, posts }) => {
   const totalPosts = posts.filter(
     (post) => post.user.name === user.name
   ).length;
-  const totalComments = posts.reduce((sum, post) => {
-    return sum + (post.totalComments || 0);
-  }, 0);
 
   return (
     <div className="user-profile">
@@ -23,10 +20,18 @@ const UserProfile = ({ user, posts }) => {
           <span className="stat-label">Posts</span>
         </div>
         <div className="stat">
-          <span className="stat-number">{totalComments}</span>
+          <span className="stat-number">1</span>
+          <span className="stat-label">Events</span>
+        </div>
+        <div className="stat">
+          <span className="stat-number">1</span>
           <span className="stat-label">Comments</span>
         </div>
       </div>
+
+      <button className="view-profile-btn">
+        View Profile
+      </button>
     </div>
   );
 };

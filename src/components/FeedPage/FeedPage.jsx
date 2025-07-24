@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Navigation from '../Navigation/Navigation';
 import PostCard from '../PostCard/PostCard';
 import UserProfile from '../UserProfile/UserProfile';
+import UpcomingEvents from '../UpcomingEvents/UpcomingEvents';
 import './FeedPage.css';
 
 const FeedPage = ({ currentUser, onLogout }) => {
@@ -9,40 +10,30 @@ const FeedPage = ({ currentUser, onLogout }) => {
     {
       id: 1,
       user: {
-        name: 'David Chen',
-        avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop'
+        name: 'John',
+        avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+        initial: 'N'
       },
-      content: 'Check out this amazing view from my hiking trip!',
+      content: 'Nothing',
       image: 'https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
-      likes: 0,
-      existingComments: [],
-      timestamp: '1 sec ago',
-      totalComments: 0
+      likes: 2,
+      comments: 0,
+      timestamp: '12d ago',
+      hasLiked: false
     },
     {
       id: 2,
       user: {
-        name: 'Sarah Johnson',
-        avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop'
+        name: 'MH Shuvo',
+        avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop'
       },
-      content: 'Great coffee and even better company at the new cafe downtown!',
-      image: 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      content: 'Why do we use it?\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-...',
+      image: 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
       likes: 0,
-      existingComments: [],
-      timestamp: '2 hours ago',
-      totalComments: 0
-    },
-    {
-      id: 3,
-      user: {
-        name: 'Alex Rodriguez',
-        avatar: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop'
-      },
-      content: 'Working on a new project. Excited to share it with everyone soon!',
-      likes: 0,
-      existingComments: [],
-      timestamp: '4 hours ago',
-      totalComments: 0
+      comments: 0,
+      timestamp: '14d ago',
+      hasLiked: false,
+      showMore: false
     }
   ]);
 
@@ -66,6 +57,7 @@ const FeedPage = ({ currentUser, onLogout }) => {
     setNewPostImage(null);
     setImagePreview('');
   };
+
   const handleCreatePost = () => {
     if (newPost.trim() || newPostImage) {
       const post = {
@@ -74,9 +66,9 @@ const FeedPage = ({ currentUser, onLogout }) => {
         content: newPost.trim(),
         image: imagePreview,
         likes: 0,
-        existingComments: [],
+        comments: 0,
         timestamp: 'Just now',
-        totalComments: 0
+        hasLiked: false
       };
       setPosts([post, ...posts]);
       setNewPost('');
@@ -102,19 +94,36 @@ const FeedPage = ({ currentUser, onLogout }) => {
         
         <div className="main-feed">
           <div className="create-post">
-            <div className="create-post-input">
-              <img src={currentUser.avatar} alt="Your avatar" className="avatar-small" />
-              <input 
-                type="text" 
-                placeholder="What's on your mind?" 
-                className="input post-input"
-                value={newPost}
-                onChange={(e) => setNewPost(e.target.value)}
-              />
+            <div className="create-post-header">
+              <img src={currentUser.avatar} alt="Your avatar" className="user-avatar-small" />
+              <div className="user-info">
+                <div className="user-name">{currentUser.name}</div>
+                <div className="user-time">Just now</div>
+              </div>
             </div>
             
+            <textarea 
+              placeholder="What's on your mind?" 
+              className="post-input"
+              value={newPost}
+              onChange={(e) => setNewPost(e.target.value)}
+            />
+            
+            {imagePreview && (
+              <div className="image-preview">
+                <img src={imagePreview} alt="Preview" className="preview-image" />
+                <button 
+                  type="button" 
+                  className="remove-image-btn"
+                  onClick={removeImage}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+            
             <div className="create-post-actions">
-              <div className="image-upload-section">
+              <div className="post-options">
                 <input 
                   type="file" 
                   accept="image/*"
@@ -122,26 +131,16 @@ const FeedPage = ({ currentUser, onLogout }) => {
                   className="image-input-hidden"
                   id="image-upload"
                 />
-                <label htmlFor="image-upload" className="btn btn-secondary image-upload-btn">
-                  📷 Add Photo
+                <label htmlFor="image-upload" className="post-option">
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                  </svg>
+                  Photo
                 </label>
-                
-                {imagePreview && (
-                  <div className="image-preview">
-                    <img src={imagePreview} alt="Preview" className="preview-image" />
-                    <button 
-                      type="button" 
-                      className="remove-image-btn"
-                      onClick={removeImage}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                )}
               </div>
               
               <button 
-                className="btn btn-primary post-btn"
+                className="btn post-btn"
                 onClick={handleCreatePost}
                 disabled={!newPost.trim() && !newPostImage}
               >
@@ -162,21 +161,7 @@ const FeedPage = ({ currentUser, onLogout }) => {
         </div>
         
         <div className="sidebar-right">
-          <div className="trending">
-            <h3>Trending</h3>
-            <div className="trending-item">
-              <span className="trend-tag">#ReactJS</span>
-              <span className="trend-count">1.2K posts</span>
-            </div>
-            <div className="trending-item">
-              <span className="trend-tag">#WebDevelopment</span>
-              <span className="trend-count">856 posts</span>
-            </div>
-            <div className="trending-item">
-              <span className="trend-tag">#Photography</span>
-              <span className="trend-count">723 posts</span>
-            </div>
-          </div>
+          <UpcomingEvents />
         </div>
       </div>
     </div>
