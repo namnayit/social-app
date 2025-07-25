@@ -8,6 +8,7 @@ import {
 import "./App.css";
 import EventPage from "./components/EventPage/EventPage";
 import FeedPage from "./components/FeedPage/FeedPage";
+import HomePage from "./components/HomePage/HomePage";
 import LoginPage from "./components/LoginPage/LoginPage";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route
             path="/login"
             element={
@@ -58,7 +60,6 @@ function App() {
               )
             }
           />
-          <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </div>
     </Router>
