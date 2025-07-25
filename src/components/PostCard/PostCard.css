@@ -111,10 +111,16 @@
   font-size: 14px;
   padding: 8px 0;
   transition: all 0.2s ease;
+  outline: none;
 }
 
 .action-btn:hover {
   color: #374151;
+}
+
+.action-btn:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .action-btn.liked {
