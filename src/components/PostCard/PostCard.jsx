@@ -5,6 +5,9 @@ const PostCard = ({ post, onUpdatePost }) => {
   const [likes, setLikes] = useState(post.likes || 0);
   const [hasLiked, setHasLiked] = useState(post.hasLiked || false);
   const [showMore, setShowMore] = useState(post.showMore || false);
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState(post.comments || []);
+  const [newComment, setNewComment] = useState('');
 
   const handleLike = () => {
     const newLikes = hasLiked ? likes - 1 : likes + 1;
@@ -19,6 +22,31 @@ const PostCard = ({ post, onUpdatePost }) => {
       hasLiked: newHasLiked,
     };
     onUpdatePost(post.id, updatedPost);
+  };
+
+  const handleCommentToggle = () => {
+    setShowComments(!showComments);
+  };
+
+  const handleAddComment = (e) => {
+    e.preventDefault();
+    if (newComment.trim()) {
+      const comment = {
+        id: Date.now(),
+        text: newComment.trim(),
+        user: 'Current User',
+        timestamp: 'Just now'
+      };
+      const updatedComments = [...comments, comment];
+      setComments(updatedComments);
+      setNewComment('');
+      
+      const updatedPost = {
+        ...post,
+        comments: updatedComments
+      };
+      onUpdatePost(post.id, updatedPost);
+    }
   };
 
   const toggleShowMore = () => {
@@ -82,9 +110,10 @@ const PostCard = ({ post, onUpdatePost }) => {
 
           <button className="action-btn">
             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            onClick={handleCommentToggle}
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
-            {post.comments}
+            {comments.length}
           </button>
         </div>
 
@@ -94,6 +123,32 @@ const PostCard = ({ post, onUpdatePost }) => {
           </svg>
         </button>
       </div>
+
+      {showComments && (
+        <div className="comments-section">
+          <div className="comments-list">
+            {comments.map(comment => (
+              <div key={comment.id} className="comment-item">
+                <div className="comment-user">{comment.user}</div>
+                <div className="comment-text">{comment.text}</div>
+                <div className="comment-time">{comment.timestamp}</div>
+              </div>
+            ))}
+          </div>
+          <form className="comment-form" onSubmit={handleAddComment}>
+            <input
+              type="text"
+              placeholder="Write a comment..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              className="comment-input"
+            />
+            <button type="submit" className="comment-submit">
+              Post
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

@@ -22,6 +22,12 @@
 .main-feed {
   display: flex;
   flex-direction: column;
+  gap: 0;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
 }
 
