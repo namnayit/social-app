@@ -125,16 +125,23 @@ const PostCard = ({ post, onUpdatePost }) => {
 
       {showComments && (
         <div className="comments-section">
-          <div className="comments-list">
-            {comments.map(comment => (
-              <div key={comment.id} className="comment-item">
-                <div className="comment-user">{comment.user}</div>
-                <div className="comment-text">{comment.text}</div>
-                <div className="comment-time">{comment.timestamp}</div>
-              </div>
-            ))}
-          </div>
+          {comments.length > 0 && (
+            <div className="comments-list">
+              {comments.map(comment => (
+                <div key={comment.id} className="comment-item">
+                  <div className="comment-user">{comment.user}</div>
+                  <div className="comment-text">{comment.text}</div>
+                  <div className="comment-time">{comment.timestamp}</div>
+                </div>
+              ))}
+            </div>
+          )}
           <form className="comment-form" onSubmit={handleAddComment}>
+            <img 
+              src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop" 
+              alt="Your avatar" 
+              className="comment-avatar" 
+            />
             <input
               type="text"
               placeholder="Write a comment..."
@@ -142,8 +149,14 @@ const PostCard = ({ post, onUpdatePost }) => {
               onChange={(e) => setNewComment(e.target.value)}
               className="comment-input"
             />
-            <button type="submit" className="comment-submit">
-              Post
+            <button 
+              type="submit" 
+              className="comment-submit"
+              disabled={!newComment.trim()}
+            >
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+              </svg>
             </button>
           </form>
         </div>
