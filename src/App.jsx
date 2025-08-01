@@ -10,6 +10,7 @@ import EventPage from "./components/EventPage/EventPage";
 import FeedPage from "./components/FeedPage/FeedPage";
 import HomePage from "./components/HomePage/HomePage";
 import LoginPage from "./components/LoginPage/LoginPage";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,6 +56,16 @@ function App() {
             element={
               isLoggedIn ? (
                 <EventPage currentUser={currentUser} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              isLoggedIn ? (
+                <ProfilePage currentUser={currentUser} onLogout={handleLogout} />
               ) : (
                 <Navigate to="/login" replace />
               )

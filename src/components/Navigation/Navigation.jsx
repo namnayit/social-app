@@ -46,7 +46,12 @@ const Navigation = ({ onLogout }) => {
             </svg>
             Events
           </Link>
-          <div className="nav-link">
+          <Link
+            to="/profile"
+            className={`nav-link ${
+              location.pathname === "/profile" ? "active" : ""
+            }`}
+          >
             <svg
               className="nav-link-icon"
               fill="currentColor"
@@ -59,7 +64,7 @@ const Navigation = ({ onLogout }) => {
               />
             </svg>
             Profile
-          </div>
+          </Link>
           <button onClick={onLogout} className="btn logout-btn">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
               <path
