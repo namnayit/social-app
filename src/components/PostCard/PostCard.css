@@ -203,7 +203,7 @@
   flex: 1;
   padding: 10px 16px;
   border: 1px solid #f0f0f0;
-  border-radius: 24px;
+  border-radius: 8px;
   font-size: 14px;
   background: #f8f9fa;
   color: #6b7280;
@@ -221,18 +221,15 @@
 }
 
 .comment-submit {
-  width: 36px;
   height: 36px;
   background: #22c55e;
   color: white;
   border: none;
-  border-radius: 50%;
   cursor: pointer;
   transition: background 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
 .comment-submit:hover {
@@ -251,7 +248,7 @@
     padding-left: 16px;
     padding-right: 16px;
   }
-  
+
   .action-group {
     gap: 16px;
   }

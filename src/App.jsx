@@ -34,14 +34,14 @@ function App() {
             path="/login"
             element={
               isLoggedIn ? (
-                <Navigate to="/feed" replace />
+                <Navigate to="/feeds" replace />
               ) : (
                 <LoginPage onLogin={handleLogin} />
               )
             }
           />
           <Route
-            path="/feed"
+            path="/feeds"
             element={
               isLoggedIn ? (
                 <FeedPage currentUser={currentUser} onLogout={handleLogout} />
@@ -51,7 +51,7 @@ function App() {
             }
           />
           <Route
-            path="/event/:eventId"
+            path="/events"
             element={
               isLoggedIn ? (
                 <EventPage currentUser={currentUser} onLogout={handleLogout} />
