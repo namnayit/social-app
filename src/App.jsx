@@ -65,7 +65,13 @@ function App() {
             path="/profile"
             element={
               isLoggedIn ? (
-                <ProfilePage currentUser={currentUser} onLogout={handleLogout} />
+                <ProfilePage 
+                  currentUser={currentUser} 
+                  onLogout={handleLogout}
+                  posts={posts}
+                  setPosts={setPosts}
+                  onUpdatePost={handleUpdatePost}
+                />
               ) : (
                 <Navigate to="/login" replace />
               )
