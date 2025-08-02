@@ -45,29 +45,8 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost }) =
     }
   };
 
-  // Sample user posts data
-  const userPosts = [
-    {
-      id: 1,
-      content:
-        "Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-      image:
-        "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
-      likes: 1,
-      comments: 0,
-      date: "July 10, 2025",
-    },
-    {
-      id: 2,
-      content:
-        "SL Vs BAN 3rd ODI FREE Live Streaming Details: When And Where To Watch Sri Lanka vs Bangladesh Series Decider Match Live Telecast On TV, Mobile APPs Online Sri Lanka and Bangladesh will face off in the series-deciding 3rd ODI on July 8 in Pallekele. With the series level at 1-1, Sri Lanka aim for a fifth consecutive home win, while Bangladesh seek their first ODI series triumph in Sri Lanka. Scroll down for the complete live streaming details.",
-      image:
-        "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
-      likes: 3,
-      comments: 0,
-      date: "July 10, 2025",
-    },
-  ];
+  // Filter posts to show only current user's posts
+  const userPosts = posts.filter(post => post.user.name === currentUser.name);
 
   return (
     <div className="profile-page">
