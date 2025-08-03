@@ -5,7 +5,7 @@ import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
 import UserProfile from "../UserProfile/UserProfile";
 import "./FeedPage.css";
 
-const FeedPage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost }) => {
+const FeedPage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onDeletePost }) => {
   const [newPost, setNewPost] = useState("");
   const [newPostImage, setNewPostImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
@@ -135,7 +135,9 @@ const FeedPage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost }) => {
               <PostCard
                 key={post.id}
                 post={post}
+                currentUser={currentUser}
                 onUpdatePost={onUpdatePost}
+                onDeletePost={onDeletePost}
               />
             ))}
           </div>

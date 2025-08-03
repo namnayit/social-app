@@ -65,6 +65,11 @@ function App() {
   const handleUpdatePost = (postId, updatedPost) => {
     setPosts(posts.map((post) => (post.id === postId ? updatedPost : post)));
   };
+
+  const handleDeletePost = (postId) => {
+    setPosts(posts.filter((post) => post.id !== postId));
+  };
+
   return (
     <Router>
       <div className="App">
@@ -90,6 +95,7 @@ function App() {
                   posts={posts}
                   setPosts={setPosts}
                   onUpdatePost={handleUpdatePost}
+                  onDeletePost={handleDeletePost}
                 />
               ) : (
                 <Navigate to="/login" replace />
@@ -119,6 +125,7 @@ function App() {
                   posts={posts}
                   setPosts={setPosts}
                   onUpdatePost={handleUpdatePost}
+                  onDeletePost={handleDeletePost}
                 />
               ) : (
                 <Navigate to="/login" replace />
