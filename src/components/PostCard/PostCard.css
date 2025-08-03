@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  position: relative;
 }
 
 .post-avatar {
@@ -47,6 +48,31 @@
 .post-timestamp {
   color: #6b7280;
   font-size: 12px;
+}
+
+.delete-post-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-post-btn:hover {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.delete-post-btn:focus {
+  outline: none;
 }
 
 .post-content {

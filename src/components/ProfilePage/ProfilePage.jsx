@@ -3,7 +3,7 @@ import Navigation from "../Navigation/Navigation";
 import PostCard from "../PostCard/PostCard";
 import "./ProfilePage.css";
 
-const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost }) => {
+const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onDeletePost }) => {
   const [activeTab, setActiveTab] = useState("Posts");
   const [newPost, setNewPost] = useState("");
   const [newPostImage, setNewPostImage] = useState(null);
@@ -215,7 +215,9 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost }) =
                 <PostCard
                   key={post.id}
                   post={post}
+                  currentUser={currentUser}
                   onUpdatePost={onUpdatePost}
+                  onDeletePost={onDeletePost}
                 />
               ))}
             </div>

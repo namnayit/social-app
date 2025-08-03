@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./PostCard.css";
 
-const PostCard = ({ post, onUpdatePost }) => {
+const PostCard = ({ post, currentUser, onUpdatePost, onDeletePost }) => {
   const [likes, setLikes] = useState(post.likes || 0);
   const [hasLiked, setHasLiked] = useState(post.hasLiked || false);
   const [showMore, setShowMore] = useState(post.showMore || false);
@@ -49,6 +49,12 @@ const PostCard = ({ post, onUpdatePost }) => {
     }
   };
 
+  const handleDelete = () => {
+    if (window.confirm('Are you sure you want to delete this post?')) {
+      onDeletePost(post.id);
+    }
+  };
+
   const toggleShowMore = () => {
     setShowMore(!showMore);
   };
@@ -75,6 +81,13 @@ const PostCard = ({ post, onUpdatePost }) => {
           <h4 className="post-username">{post.user.name}</h4>
           <span className="post-timestamp">{post.timestamp}</span>
         </div>
+        {currentUser && currentUser.name === post.user.name && (
+          <button className="delete-post-btn" onClick={handleDelete}>
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1H8a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        )}
       </div>
 
       <div className="post-content">
