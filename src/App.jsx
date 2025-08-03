@@ -12,9 +12,48 @@ import HomePage from "./components/HomePage/HomePage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [events, setEvents] = useState([
+    {
+      id: 1,
+      title: "What is Lorem Ipsum?",
+      dateTime: "2025-07-15T21:38",
+      venue: "ShafiFi",
+      organizer: "@mithshuvoalways",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      address: "60 feet, Dhaka",
+      image:
+        "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop",
+      attending: 2,
+      notAttending: 0,
+      eventUrl: "Event Website",
+      latitude: "23.8103",
+      longitude: "90.4125",
+      createdAt: "2025-01-01T00:00:00.000Z"
+    },
+    {
+      id: 2,
+      title: "What is Lorem Ipsum?",
+      dateTime: "2025-07-15T21:38",
+      venue: "ShafiFi",
+      organizer: "@mithshuvoalways",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      address: "60 feet, Dhaka",
+      image:
+        "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop",
+      attending: 2,
+      notAttending: 0,
+      eventUrl: "Event Website",
+      latitude: "23.8103",
+      longitude: "90.4125",
+      createdAt: "2025-01-01T00:00:00.000Z"
+    },
+  ]);
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -70,6 +109,14 @@ function App() {
     setPosts(posts.filter((post) => post.id !== postId));
   };
 
+  const handleCreateEvent = (newEvent) => {
+    setEvents([newEvent, ...events]);
+  };
+
+  const handleDeleteEvent = (eventId) => {
+    setEvents(events.filter((event) => event.id !== eventId));
+  };
+
   return (
     <Router>
       <div className="App">
@@ -106,9 +153,11 @@ function App() {
             path="/events"
             element={
               isLoggedIn ? (
-                <EventPage 
+                <EventPage
                   currentUser={currentUser} 
                   onLogout={handleLogout}
+                  events={events}
+                  onDeleteEvent={handleDeleteEvent}
                 />
               ) : (
                 <Navigate to="/login" replace />
@@ -119,13 +168,16 @@ function App() {
             path="/profile"
             element={
               isLoggedIn ? (
-                <ProfilePage 
+                <ProfilePage
                   currentUser={currentUser} 
                   onLogout={handleLogout}
                   posts={posts}
                   setPosts={setPosts}
                   onUpdatePost={handleUpdatePost}
                   onDeletePost={handleDeletePost}
+                  events={events}
+                  onCreateEvent={handleCreateEvent}
+                  onDeleteEvent={handleDeleteEvent}
                 />
               ) : (
                 <Navigate to="/login" replace />
