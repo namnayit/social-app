@@ -143,6 +143,7 @@ function App() {
                   setPosts={setPosts}
                   onUpdatePost={handleUpdatePost}
                   onDeletePost={handleDeletePost}
+                  events={events}
                 />
               ) : (
                 <Navigate to="/login" replace />

@@ -53,6 +53,13 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
   // Filter events to show only current user's events
   const userEvents = events.filter(event => event.organizer === "@mithshuvoalways");
 
+  // Calculate dynamic stats
+  const totalUserPosts = userPosts.length;
+  const totalUserEvents = userEvents.length;
+  const totalUserComments = posts.reduce((total, post) => {
+    return total + (post.comments ? post.comments.length : 0);
+  }, 0);
+
   const handleDeleteEvent = (eventId) => {
     if (window.confirm('Are you sure you want to delete this event?')) {
       onDeleteEvent(eventId);
@@ -102,15 +109,15 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
 
               <div className="profile-stats-large">
                 <div className="stat-item">
-                  <span className="stat-number">2</span>
+                  <span className="stat-number">{totalUserPosts}</span>
                   <span>Posts</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-number">1</span>
+                  <span className="stat-number">{totalUserEvents}</span>
                   <span>Events</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-number">2</span>
+                  <span className="stat-number">{totalUserComments}</span>
                   <span>Comments</span>
                 </div>
               </div>
