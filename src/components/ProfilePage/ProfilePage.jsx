@@ -1,11 +1,21 @@
 import { useState } from "react";
+import EventModal from "../EventModal/EventModal";
 import Navigation from "../Navigation/Navigation";
 import PostCard from "../PostCard/PostCard";
-import EventModal from "../EventModal/EventModal";
 import ProfileEditModal from "../ProfileEditModal/ProfileEditModal";
 import "./ProfilePage.css";
 
-const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onDeletePost, events, onCreateEvent, onDeleteEvent }) => {
+const ProfilePage = ({
+  currentUser,
+  onLogout,
+  posts,
+  setPosts,
+  onUpdatePost,
+  onDeletePost,
+  events,
+  onCreateEvent,
+  onDeleteEvent,
+}) => {
   const [activeTab, setActiveTab] = useState("Posts");
   const [newPost, setNewPost] = useState("");
   const [newPostImage, setNewPostImage] = useState(null);
@@ -51,10 +61,12 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
   };
 
   // Filter posts to show only current user's posts
-  const userPosts = posts.filter(post => post.user.name === currentUser.name);
-  
+  const userPosts = posts.filter((post) => post.user.name === currentUser.name);
+
   // Filter events to show only current user's events
-  const userEvents = events.filter(event => event.organizer === "@mithshuvoalways");
+  const userEvents = events.filter(
+    (event) => event.organizer === "@mithshuvoalways"
+  );
 
   // Calculate dynamic stats
   const totalUserPosts = userPosts.length;
@@ -64,7 +76,7 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
   }, 0);
 
   const handleDeleteEvent = (eventId) => {
-    if (window.confirm('Are you sure you want to delete this event?')) {
+    if (window.confirm("Are you sure you want to delete this event?")) {
       onDeleteEvent(eventId);
     }
   };
@@ -87,13 +99,23 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
                 alt={user.name}
                 className="profile-avatar-large"
               />
-              <div className="online-indicator"></div>
-              <button 
-                className="profile-edit-camera-btn"
+              <button
                 onClick={() => setShowProfileEditModal(true)}
+                className="profile-edit-camera-btn"
               >
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                  <circle cx="12" cy="13" r="3" />
                 </svg>
               </button>
             </div>
@@ -101,7 +123,10 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
             <div className="profile-details">
               <div className="profile-name-section">
                 <h1 className="profile-name-large">{user.name}</h1>
-                <button className="edit-btn" onClick={() => setShowProfileEditModal(true)}>
+                <button
+                  className="edit-btn"
+                  onClick={() => setShowProfileEditModal(true)}
+                >
                   <svg
                     width="14"
                     height="14"
@@ -122,9 +147,7 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
 
               <div className="profile-username">@mithshuvoalways</div>
               <div className="profile-profession-large">{user.profession}</div>
-              {user.bio && (
-                <div className="profile-bio">{user.bio}</div>
-              )}
+              {user.bio && <div className="profile-bio">{user.bio}</div>}
 
               <div className="profile-stats-large">
                 <div className="stat-item">
@@ -170,7 +193,10 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
             </svg>
             New Event
           </button>
-          <button className="new-event-btn" onClick={() => setShowEventModal(true)}>
+          <button
+            className="new-event-btn"
+            onClick={() => setShowEventModal(true)}
+          >
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
@@ -277,28 +303,67 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
                   <div key={event.id} className="event-card">
                     <div className="event-header">
                       <h3 className="event-title">{event.title}</h3>
-                      <button 
+                      <button
                         className="delete-event-btn"
                         onClick={() => handleDeleteEvent(event.id)}
                       >
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1H8a1 1 0 00-1 1v3M4 7h16" />
+                        <svg
+                          width="16"
+                          height="16"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1H8a1 1 0 00-1 1v3M4 7h16"
+                          />
                         </svg>
                       </button>
                     </div>
-                    <img src={event.image} alt={event.title} className="event-image" />
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="event-image"
+                    />
                     <div className="event-content">
                       <div className="event-meta">
                         <div className="event-meta-item">
-                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          <svg
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            />
                           </svg>
-                          {new Date(event.dateTime).toLocaleDateString()} at {new Date(event.dateTime).toLocaleTimeString()}
+                          {new Date(event.dateTime).toLocaleDateString()} at{" "}
+                          {new Date(event.dateTime).toLocaleTimeString()}
                         </div>
                         <div className="event-meta-item">
-                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <svg
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
                           </svg>
                           {event.venue}
                         </div>
@@ -312,8 +377,11 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
                   </div>
                 ))
               ) : (
-                <div className="card" style={{ padding: '40px', textAlign: 'center' }}>
-                  <p style={{ color: '#6b7280', fontSize: '16px' }}>
+                <div
+                  className="card"
+                  style={{ padding: "40px", textAlign: "center" }}
+                >
+                  <p style={{ color: "#6b7280", fontSize: "16px" }}>
                     {`No events created yet. Click "New Event" to create your first event!`}
                   </p>
                 </div>
@@ -321,14 +389,14 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
             </div>
           )}
         </div>
-        
-        <EventModal 
+
+        <EventModal
           isOpen={showEventModal}
           onClose={() => setShowEventModal(false)}
           onCreateEvent={onCreateEvent}
         />
-        
-        <ProfileEditModal 
+
+        <ProfileEditModal
           isOpen={showProfileEditModal}
           onClose={() => setShowProfileEditModal(false)}
           currentUser={user}

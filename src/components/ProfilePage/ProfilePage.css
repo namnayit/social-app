@@ -36,38 +36,22 @@
   object-fit: cover;
 }
 
-.online-indicator {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  width: 20px;
-  height: 20px;
-  background: #22c55e;
-  border: 3px solid white;
-  border-radius: 50%;
-}
-
 .profile-edit-camera-btn {
   position: absolute;
+  width: 28px;
+  height: 28px;
   bottom: 8px;
-  right: 8px;
-  width: 32px;
-  height: 32px;
-  background: #22c55e;
-  border: none;
+  right: 4px;
+  padding: 4px;
   border-radius: 50%;
-  color: white;
+  border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: all 0.2s ease;
-  border: 3px solid white;
+  background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .profile-edit-camera-btn:hover {
-  background: #16a34a;
   transform: scale(1.05);
 }
 
@@ -212,20 +196,20 @@
   .profile-container {
     padding: 16px;
   }
-  
+
   .profile-info {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .profile-stats-large {
     justify-content: center;
   }
-  
+
   .tabs-left {
     gap: 16px;
   }
-  
+
   .profile-tabs {
     flex-direction: column;
     gap: 16px;
