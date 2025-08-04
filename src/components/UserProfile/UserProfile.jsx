@@ -1,10 +1,20 @@
 import "./UserProfile.css";
 
-const UserProfile = ({ user, posts }) => {
+const UserProfile = ({ user, posts, events }) => {
   // Calculate real stats from posts
   const totalPosts = posts.filter(
     (post) => post.user.name === user.name
   ).length;
+
+  // Calculate real stats from events
+  const totalEvents = events.filter(
+    (event) => event.organizer === "@mithshuvoalways"
+  ).length;
+
+  // Calculate real stats from comments across all posts
+  const totalComments = posts.reduce((total, post) => {
+    return total + (post.comments ? post.comments.length : 0);
+  }, 0);
 
   return (
     <div className="user-profile">
@@ -20,11 +30,11 @@ const UserProfile = ({ user, posts }) => {
           <span className="stat-label">Posts</span>
         </div>
         <div className="stat">
-          <span className="stat-number">1</span>
+          <span className="stat-number">{totalEvents}</span>
           <span className="stat-label">Events</span>
         </div>
         <div className="stat">
-          <span className="stat-number">1</span>
+          <span className="stat-number">{totalComments}</span>
           <span className="stat-label">Comments</span>
         </div>
       </div>

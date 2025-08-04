@@ -53,7 +53,7 @@ const FeedPage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onDele
 
       <div className="feed-container">
         <div className="sidebar-left">
-          <UserProfile user={currentUser} posts={posts} />
+          <UserProfile user={currentUser} posts={posts} events={events} />
         </div>
 
         <div className="main-feed">
