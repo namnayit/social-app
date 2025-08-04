@@ -47,6 +47,30 @@
   border-radius: 50%;
 }
 
+.profile-edit-camera-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  background: #22c55e;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.profile-edit-camera-btn:hover {
+  background: #16a34a;
+  transform: scale(1.05);
+}
+
 .profile-details {
   flex: 1;
 }
@@ -92,6 +116,14 @@
   color: #111827;
   font-size: 16px;
   margin-bottom: 16px;
+}
+
+.profile-bio {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  font-style: italic;
 }
 
 .profile-stats-large {

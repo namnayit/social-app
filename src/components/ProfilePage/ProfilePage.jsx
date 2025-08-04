@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navigation from "../Navigation/Navigation";
 import PostCard from "../PostCard/PostCard";
 import EventModal from "../EventModal/EventModal";
+import ProfileEditModal from "../ProfileEditModal/ProfileEditModal";
 import "./ProfilePage.css";
 
 const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onDeletePost, events, onCreateEvent, onDeleteEvent }) => {
@@ -10,6 +11,8 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
   const [newPostImage, setNewPostImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
   const [showEventModal, setShowEventModal] = useState(false);
+  const [showProfileEditModal, setShowProfileEditModal] = useState(false);
+  const [user, setUser] = useState(currentUser);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -66,6 +69,11 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
     }
   };
 
+  const handleUpdateProfile = (updatedUser) => {
+    setUser(updatedUser);
+    // You can also update the global user state here if needed
+  };
+
   return (
     <div className="profile-page">
       <Navigation currentUser={currentUser} onLogout={onLogout} />
@@ -75,17 +83,25 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
           <div className="profile-info">
             <div className="profile-avatar-container">
               <img
-                src={currentUser.avatar}
-                alt={currentUser.name}
+                src={user.avatar}
+                alt={user.name}
                 className="profile-avatar-large"
               />
               <div className="online-indicator"></div>
+              <button 
+                className="profile-edit-camera-btn"
+                onClick={() => setShowProfileEditModal(true)}
+              >
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                </svg>
+              </button>
             </div>
 
             <div className="profile-details">
               <div className="profile-name-section">
-                <h1 className="profile-name-large">MH Shuvo</h1>
-                <button className="edit-btn">
+                <h1 className="profile-name-large">{user.name}</h1>
+                <button className="edit-btn" onClick={() => setShowProfileEditModal(true)}>
                   <svg
                     width="14"
                     height="14"
@@ -105,7 +121,10 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
               </div>
 
               <div className="profile-username">@mithshuvoalways</div>
-              <div className="profile-profession-large">Developer</div>
+              <div className="profile-profession-large">{user.profession}</div>
+              {user.bio && (
+                <div className="profile-bio">{user.bio}</div>
+              )}
 
               <div className="profile-stats-large">
                 <div className="stat-item">
@@ -167,12 +186,12 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
           <div className="create-post">
             <div className="create-post-header">
               <img
-                src={currentUser.avatar}
+                src={user.avatar}
                 alt="Your avatar"
                 className="user-avatar-small"
               />
               <div className="user-info">
-                <div className="user-name">{currentUser.name}</div>
+                <div className="user-name">{user.name}</div>
                 <div className="user-time">Just now</div>
               </div>
             </div>
@@ -243,7 +262,7 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
                 <PostCard
                   key={post.id}
                   post={post}
-                  currentUser={currentUser}
+                  currentUser={user}
                   onUpdatePost={onUpdatePost}
                   onDeletePost={onDeletePost}
                 />
@@ -307,6 +326,13 @@ const ProfilePage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onD
           isOpen={showEventModal}
           onClose={() => setShowEventModal(false)}
           onCreateEvent={onCreateEvent}
+        />
+        
+        <ProfileEditModal 
+          isOpen={showProfileEditModal}
+          onClose={() => setShowProfileEditModal(false)}
+          currentUser={user}
+          onUpdateProfile={handleUpdateProfile}
         />
       </div>
     </div>
