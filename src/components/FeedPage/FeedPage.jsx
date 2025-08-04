@@ -5,7 +5,7 @@ import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
 import UserProfile from "../UserProfile/UserProfile";
 import "./FeedPage.css";
 
-const FeedPage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onDeletePost }) => {
+const FeedPage = ({ currentUser, onLogout, posts, setPosts, onUpdatePost, onDeletePost, events }) => {
   const [newPost, setNewPost] = useState("");
   const [newPostImage, setNewPostImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
