@@ -8,7 +8,7 @@ const UserProfile = ({ user, posts, events }) => {
 
   // Calculate real stats from events
   const totalEvents = events.filter(
-    (event) => event.organizer === "@mithshuvoalways"
+    (event) => event.organizer === "@mhshuvoalways"
   ).length;
 
   // Calculate real stats from comments across all posts
@@ -39,9 +39,7 @@ const UserProfile = ({ user, posts, events }) => {
         </div>
       </div>
 
-      <button className="view-profile-btn">
-        View Profile
-      </button>
+      <button className="view-profile-btn">View Profile</button>
     </div>
   );
 };

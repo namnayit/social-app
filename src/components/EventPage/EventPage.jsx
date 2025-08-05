@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navigation from "../Navigation/Navigation";
 import "./EventPage.css";
+import { MapContainer } from "./MapContainer";
 
 const EventPage = ({ currentUser, onLogout, events, onDeleteEvent }) => {
   const [eventRsvps, setEventRsvps] = useState({});
@@ -13,22 +14,26 @@ const EventPage = ({ currentUser, onLogout, events, onDeleteEvent }) => {
   };
 
   const handleDeleteEvent = (eventId) => {
-    if (window.confirm('Are you sure you want to delete this event?')) {
+    if (window.confirm("Are you sure you want to delete this event?")) {
       onDeleteEvent(eventId);
     }
   };
 
   const formatEventDate = (dateTime) => {
     const date = new Date(dateTime);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    }) + ' at ' + date.toLocaleTimeString('en-US', { 
-      hour: 'numeric', 
-      minute: '2-digit', 
-      hour12: true 
-    });
+    return (
+      date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }) +
+      " at " +
+      date.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      })
+    );
   };
 
   return (
@@ -45,12 +50,23 @@ const EventPage = ({ currentUser, onLogout, events, onDeleteEvent }) => {
           {events.map((event) => (
             <div key={event.id} className="event-card">
               {currentUser && currentUser.name === "MH Shuvo" && (
-                <button 
+                <button
                   className="delete-event-btn-absolute"
                   onClick={() => handleDeleteEvent(event.id)}
                 >
-                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1H8a1 1 0 00-1 1v3M4 7h16" />
+                  <svg
+                    width="16"
+                    height="16"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1H8a1 1 0 00-1 1v3M4 7h16"
+                    />
                   </svg>
                 </button>
               )}
@@ -122,7 +138,7 @@ const EventPage = ({ currentUser, onLogout, events, onDeleteEvent }) => {
                   </div>
                   {eventRsvps[event.id] === "attending" && (
                     <div className="rsvp-message">
-                      Great! We'll send you event updates.
+                      {`Great! We'll send you event updates.`}
                     </div>
                   )}
                 </div>
@@ -146,14 +162,18 @@ const EventPage = ({ currentUser, onLogout, events, onDeleteEvent }) => {
                 <div className="event-location">
                   <div className="location-title">Location</div>
                   <div className="location-text">{event.address}</div>
-                  <img
-                    src="https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=400&h=200&fit=crop"
-                    alt="Event location map"
-                    className="event-map"
+                  <MapContainer
+                    latitude={event?.latitude}
+                    longitude={event?.longitude}
                   />
                   {event.eventUrl && (
                     <div className="event-website">
-                      <a href={event.eventUrl} className="website-link" target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={event.eventUrl}
+                        className="website-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <svg
                           width="16"
                           height="16"

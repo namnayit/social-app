@@ -65,7 +65,7 @@ const ProfilePage = ({
 
   // Filter events to show only current user's events
   const userEvents = events.filter(
-    (event) => event.organizer === "@mithshuvoalways"
+    (event) => event.organizer === "@mhshuvoalways"
   );
 
   // Calculate dynamic stats
@@ -80,7 +80,6 @@ const ProfilePage = ({
       onDeleteEvent(eventId);
     }
   };
-
 
   return (
     <div className="profile-page">
@@ -141,9 +140,13 @@ const ProfilePage = ({
                 </button>
               </div>
 
-              <div className="profile-username">@mithshuvoalways</div>
-              <div className="profile-profession-large">{currentUser.profession}</div>
-              {currentUser.bio && <div className="profile-bio">{currentUser.bio}</div>}
+              <div className="profile-username">@mhshuvoalways</div>
+              <div className="profile-profession-large">
+                {currentUser.profession}
+              </div>
+              {currentUser.bio && (
+                <div className="profile-bio">{currentUser.bio}</div>
+              )}
 
               <div className="profile-stats-large">
                 <div className="stat-item">

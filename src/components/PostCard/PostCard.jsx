@@ -183,7 +183,7 @@ const PostCard = ({ post, currentUser, onUpdatePost, onDeletePost }) => {
           )}
           <form className="comment-form" onSubmit={handleAddComment}>
             <img
-              src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop"
+              src={post.user.avatar}
               alt="Your avatar"
               className="comment-avatar"
             />

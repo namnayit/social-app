@@ -11,24 +11,24 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
     eventUrl: "",
     latitude: "",
     longitude: "",
-    image: null
+    image: null,
   });
   const [imagePreview, setImagePreview] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        image: file
+        image: file,
       }));
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -42,10 +42,10 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setFormData(prev => ({
+          setFormData((prev) => ({
             ...prev,
             latitude: position.coords.latitude.toString(),
-            longitude: position.coords.longitude.toString()
+            longitude: position.coords.longitude.toString(),
           }));
         },
         (error) => {
@@ -57,7 +57,12 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.title && formData.dateTime && formData.venue && formData.address) {
+    if (
+      formData.title &&
+      formData.dateTime &&
+      formData.venue &&
+      formData.address
+    ) {
       const newEvent = {
         id: Date.now(),
         title: formData.title,
@@ -68,13 +73,15 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
         eventUrl: formData.eventUrl,
         latitude: formData.latitude,
         longitude: formData.longitude,
-        image: imagePreview || "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop",
+        image:
+          imagePreview ||
+          "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&fit=crop",
         attending: 0,
         notAttending: 0,
-        organizer: "@mithshuvoalways",
-        createdAt: new Date().toISOString()
+        organizer: "@mhshuvoalways",
+        createdAt: new Date().toISOString(),
       };
-      
+
       onCreateEvent(newEvent);
       handleClose();
     }
@@ -90,7 +97,7 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
       eventUrl: "",
       latitude: "",
       longitude: "",
-      image: null
+      image: null,
     });
     setImagePreview("");
     onClose();
@@ -104,8 +111,19 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
         <div className="modal-header">
           <h2 className="modal-title">Create New Event</h2>
           <button className="modal-close" onClick={handleClose}>
-            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -194,8 +212,17 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
               className="location-btn"
               onClick={handleUseCurrentLocation}
             >
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+              <svg
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clipRule="evenodd"
+                />
               </svg>
               Use Current Location
             </button>
@@ -228,7 +255,7 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
                     className="remove-image"
                     onClick={() => {
                       setImagePreview("");
-                      setFormData(prev => ({ ...prev, image: null }));
+                      setFormData((prev) => ({ ...prev, image: null }));
                     }}
                   >
                     ✕
@@ -236,8 +263,19 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
                 </div>
               ) : (
                 <label htmlFor="eventImage" className="upload-label">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                  <svg
+                    width="24"
+                    height="24"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                    />
                   </svg>
                   <span>Click to upload event image</span>
                   <small>Max 5MB</small>
@@ -248,7 +286,7 @@ const EventModal = ({ isOpen, onClose, onCreateEvent }) => {
                 id="eventImage"
                 accept="image/*"
                 onChange={handleImageUpload}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
               />
             </div>
           </div>

@@ -10,11 +10,11 @@ const LoginPage = ({ onLogin }) => {
     // Mock authentication
     const userData = {
       id: 1,
-      name: "Krithi Perry",
+      name: "MH Shuvo",
       email: email,
       profession: "Developer",
       avatar:
-        "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
+        "https://www.mhshuvo.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmhshuvo.1537fdfb.png&w=640&q=75",
     };
     onLogin(userData);
   };

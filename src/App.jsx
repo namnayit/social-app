@@ -12,14 +12,13 @@ import HomePage from "./components/HomePage/HomePage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    const savedLoginState = localStorage.getItem('isLoggedIn');
-    return savedLoginState === 'true';
+    const savedLoginState = localStorage.getItem("isLoggedIn");
+    return savedLoginState === "true";
   });
   const [currentUser, setCurrentUser] = useState(() => {
-    const savedUser = localStorage.getItem('currentUser');
+    const savedUser = localStorage.getItem("currentUser");
     return savedUser ? JSON.parse(savedUser) : null;
   });
   const [events, setEvents] = useState([
@@ -28,7 +27,7 @@ function App() {
       title: "What is Lorem Ipsum?",
       dateTime: "2025-07-15T21:38",
       venue: "ShafiFi",
-      organizer: "@mithshuvoalways",
+      organizer: "@mhshuvoalways",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
       address: "60 feet, Dhaka",
@@ -39,14 +38,14 @@ function App() {
       eventUrl: "Event Website",
       latitude: "23.8103",
       longitude: "90.4125",
-      createdAt: "2025-01-01T00:00:00.000Z"
+      createdAt: "2025-01-01T00:00:00.000Z",
     },
     {
       id: 2,
       title: "What is Lorem Ipsum?",
       dateTime: "2025-07-15T21:38",
       venue: "ShafiFi",
-      organizer: "@mithshuvoalways",
+      organizer: "@mhshuvoalways",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
       address: "60 feet, Dhaka",
@@ -57,7 +56,7 @@ function App() {
       eventUrl: "Event Website",
       latitude: "23.8103",
       longitude: "90.4125",
-      createdAt: "2025-01-01T00:00:00.000Z"
+      createdAt: "2025-01-01T00:00:00.000Z",
     },
   ]);
   const [posts, setPosts] = useState([
@@ -100,15 +99,15 @@ function App() {
   const handleLogin = (userData) => {
     setIsLoggedIn(true);
     setCurrentUser(userData);
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('currentUser', JSON.stringify(userData));
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("currentUser", JSON.stringify(userData));
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setCurrentUser(null);
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("currentUser");
   };
 
   const handleUpdatePost = (postId, updatedPost) => {
@@ -129,7 +128,7 @@ function App() {
 
   const handleUpdateProfile = (updatedUser) => {
     setCurrentUser(updatedUser);
-    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+    localStorage.setItem("currentUser", JSON.stringify(updatedUser));
   };
   return (
     <Router>
@@ -150,8 +149,8 @@ function App() {
             path="/feeds"
             element={
               isLoggedIn ? (
-                <FeedPage 
-                  currentUser={currentUser} 
+                <FeedPage
+                  currentUser={currentUser}
                   onLogout={handleLogout}
                   posts={posts}
                   setPosts={setPosts}
@@ -169,7 +168,7 @@ function App() {
             element={
               isLoggedIn ? (
                 <EventPage
-                  currentUser={currentUser} 
+                  currentUser={currentUser}
                   onLogout={handleLogout}
                   events={events}
                   onDeleteEvent={handleDeleteEvent}
@@ -184,7 +183,7 @@ function App() {
             element={
               isLoggedIn ? (
                 <ProfilePage
-                  currentUser={currentUser} 
+                  currentUser={currentUser}
                   onLogout={handleLogout}
                   posts={posts}
                   setPosts={setPosts}
