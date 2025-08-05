@@ -14,8 +14,14 @@ import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const savedLoginState = localStorage.getItem('isLoggedIn');
+    return savedLoginState === 'true';
+  });
+  const [currentUser, setCurrentUser] = useState(() => {
+    const savedUser = localStorage.getItem('currentUser');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const [events, setEvents] = useState([
     {
       id: 1,
@@ -94,11 +100,15 @@ function App() {
   const handleLogin = (userData) => {
     setIsLoggedIn(true);
     setCurrentUser(userData);
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('currentUser', JSON.stringify(userData));
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setCurrentUser(null);
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
   };
 
   const handleUpdatePost = (postId, updatedPost) => {
@@ -119,6 +129,7 @@ function App() {
 
   const handleUpdateProfile = (updatedUser) => {
     setCurrentUser(updatedUser);
+    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
   };
   return (
     <Router>
