@@ -15,6 +15,7 @@ const ProfilePage = ({
   events,
   onCreateEvent,
   onDeleteEvent,
+  onUpdateProfile,
 }) => {
   const [activeTab, setActiveTab] = useState("Posts");
   const [newPost, setNewPost] = useState("");
@@ -22,7 +23,6 @@ const ProfilePage = ({
   const [imagePreview, setImagePreview] = useState("");
   const [showEventModal, setShowEventModal] = useState(false);
   const [showProfileEditModal, setShowProfileEditModal] = useState(false);
-  const [user, setUser] = useState(currentUser);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -81,10 +81,6 @@ const ProfilePage = ({
     }
   };
 
-  const handleUpdateProfile = (updatedUser) => {
-    setUser(updatedUser);
-    // You can also update the global user state here if needed
-  };
 
   return (
     <div className="profile-page">
@@ -95,8 +91,8 @@ const ProfilePage = ({
           <div className="profile-info">
             <div className="profile-avatar-container">
               <img
-                src={user.avatar}
-                alt={user.name}
+                src={currentUser.avatar}
+                alt={currentUser.name}
                 className="profile-avatar-large"
               />
               <button
@@ -122,7 +118,7 @@ const ProfilePage = ({
 
             <div className="profile-details">
               <div className="profile-name-section">
-                <h1 className="profile-name-large">{user.name}</h1>
+                <h1 className="profile-name-large">{currentUser.name}</h1>
                 <button
                   className="edit-btn"
                   onClick={() => setShowProfileEditModal(true)}
@@ -146,8 +142,8 @@ const ProfilePage = ({
               </div>
 
               <div className="profile-username">@mithshuvoalways</div>
-              <div className="profile-profession-large">{user.profession}</div>
-              {user.bio && <div className="profile-bio">{user.bio}</div>}
+              <div className="profile-profession-large">{currentUser.profession}</div>
+              {currentUser.bio && <div className="profile-bio">{currentUser.bio}</div>}
 
               <div className="profile-stats-large">
                 <div className="stat-item">
@@ -202,12 +198,12 @@ const ProfilePage = ({
           <div className="create-post">
             <div className="create-post-header">
               <img
-                src={user.avatar}
+                src={currentUser.avatar}
                 alt="Your avatar"
                 className="user-avatar-small"
               />
               <div className="user-info">
-                <div className="user-name">{user.name}</div>
+                <div className="user-name">{currentUser.name}</div>
                 <div className="user-time">Just now</div>
               </div>
             </div>
@@ -278,7 +274,7 @@ const ProfilePage = ({
                 <PostCard
                   key={post.id}
                   post={post}
-                  currentUser={user}
+                  currentUser={currentUser}
                   onUpdatePost={onUpdatePost}
                   onDeletePost={onDeletePost}
                 />
@@ -389,8 +385,8 @@ const ProfilePage = ({
         <ProfileEditModal
           isOpen={showProfileEditModal}
           onClose={() => setShowProfileEditModal(false)}
-          currentUser={user}
-          onUpdateProfile={handleUpdateProfile}
+          currentUser={currentUser}
+          onUpdateProfile={onUpdateProfile}
         />
       </div>
     </div>

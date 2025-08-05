@@ -117,6 +117,9 @@ function App() {
     setEvents(events.filter((event) => event.id !== eventId));
   };
 
+  const handleUpdateProfile = (updatedUser) => {
+    setCurrentUser(updatedUser);
+  };
   return (
     <Router>
       <div className="App">
@@ -179,6 +182,7 @@ function App() {
                   events={events}
                   onCreateEvent={handleCreateEvent}
                   onDeleteEvent={handleDeleteEvent}
+                  onUpdateProfile={handleUpdateProfile}
                 />
               ) : (
                 <Navigate to="/login" replace />
